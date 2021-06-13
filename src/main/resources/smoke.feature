@@ -2,13 +2,17 @@ Feature: Smoke
   I want to test all main site functionality
   So that I can be sure that site works correctly
 
-  Scenario: Check add product to Saved Items
-    Given User opens 'https://www.asos.com/' page
+  Scenario Outline: Check add product to Saved Items
+    Given User opens '<homePage>' page
     And User clicks to men clothes
-    And User clicks to Shoes & Trainers
+    And User clicks to Shop summer '21
     When User add any product to Saved Items
     And User go to Saved Items
-    Then User check his Saved List
+    Then User check his Saved List '<amount item>'
+
+    Examples:
+    | homePage              | amount item |
+    | https://www.asos.com/ | 1 item      |
 
     Scenario Outline: Check search line work correctly
       Given User opens '<homePage>' page
@@ -62,11 +66,11 @@ Feature: Smoke
           And User click on size popup window
           And User clicks to take a size
           And User click on button add to bag
-          Then User check his bag
+          Then User check his bag '<amount item>'
 
           Examples:
-            | homePage              | keyword  |
-            | https://www.asos.com/ | reebok   |
+            | homePage              | keyword  | amount item |
+            | https://www.asos.com/ | reebok   | 1 item      |
 
           Scenario Outline: Check search line to put extra words, more than 150
             Given User opens '<homePage>' page
@@ -82,11 +86,11 @@ Feature: Smoke
               Given User opens '<homePage>' page
               When User makes search by keyword '<keyword>'
               And User clicks search button
-              Then User check number of search items
+              Then User check number of search <amount item>
 
               Examples:
-                | homePage              | keyword  |
-                | https://www.asos.com/ | reebok   |
+                | homePage              | keyword  | amount item |
+                | https://www.asos.com/ | reebok   | 72          |
 
               Scenario Outline: Check Account sigh in work correct
                 Given User opens '<homePage>' page
@@ -104,8 +108,8 @@ Feature: Smoke
                   Given User opens '<homePage>' page
                   And User clicks on FQAs button
                   When User check search helping line
-                  Then User check six topics FAQs
+                  Then User check <six topics> FAQs
 
                   Examples:
-                    | homePage              |
-                    | https://www.asos.com/ |
+                    | homePage              |six topics|
+                    | https://www.asos.com/ |    6     |

@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
 
 public class DefinitionSteps {
     private static final long DEFAULT_TIMEOUT = 60;
-    private static final String EXPECTED_RESOLD = "1 item";
     WebDriver driver;
     HomePage homePage;
     MenPage menPage;
@@ -57,11 +56,11 @@ public class DefinitionSteps {
         homePage.clickOnMenWebsite();
     }
 
-    @And("User clicks to Shoes & Trainers")
+    @And("User clicks to Shop summer '21")
     public void userClicksToShoesTrainers() {
         menPage = pageFactoryManager.getMenPage();
         ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,500)");
-        menPage.clickShoesAndTrainers();
+        menPage.setClickShopSummer();
     }
 
     @When("User add any product to Saved Items")
@@ -76,11 +75,11 @@ public class DefinitionSteps {
         homePage.clickOnSavedList();
     }
 
-    @Then("User check his Saved List")
-    public void userCheckHisSavedList() {
+    @Then("User check his Saved List {string}")
+    public void userCheckHisSavedList(final String amount) {
         savedListPage = pageFactoryManager.getSavedListPage();
         homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, savedListPage.getItemSaved());
-        assertEquals(savedListPage.getTextFromItemSaved(),EXPECTED_RESOLD);
+        assertEquals(savedListPage.getTextFromItemSaved(),amount);
     }
 
     @When("User makes search by keyword {string}")
@@ -180,9 +179,9 @@ public class DefinitionSteps {
         ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,50)");
     }
 
-    @Then("User check his bag")
-    public void userCheckHisBag() {
-        assertEquals(homePage.getMyBugDropDownWindow(), EXPECTED_RESOLD);
+    @Then("User check his bag {string}")
+    public void userCheckHisBag(final String amount) {
+        assertEquals(homePage.getMyBugDropDownWindow(), amount);
     }
 
     @Then("User check search line on extra words")
@@ -192,10 +191,10 @@ public class DefinitionSteps {
         assertTrue(searchResultsPage.getTxtAfterWrongSearching());
     }
 
-    @Then("User check number of search items")
-    public void userCheckNumberOfSearchItems() {
+    @Then("User check number of search {int}")
+    public void userCheckNumberOfSearchItems(final int amount) {
         searchResultsPage = pageFactoryManager.getSearchResultPage();
-        assertEquals(searchResultsPage.countListElements(),72);
+        assertEquals(searchResultsPage.countListElements(),amount);
     }
 
     @When("User introduces correct email {string}")
@@ -230,8 +229,8 @@ public class DefinitionSteps {
         customerCarePage.getHelpInputLine();
     }
 
-    @Then("User check six topics FAQs")
-    public void userCheckSixTopicsFAQs() {
-        assertEquals(customerCarePage.getSizeListFQATopics(),6);
+    @Then("User check {int} FAQs")
+    public void userCheckSixTopicsFAQs(final int amount) {
+        assertEquals(customerCarePage.getSizeListFQATopics(),amount);
     }
 }

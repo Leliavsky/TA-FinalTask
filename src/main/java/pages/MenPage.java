@@ -1,14 +1,13 @@
 package pages;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class MenPage extends BasePage{
 
-    @FindBy(xpath = ".//*[text()='SHOES & TRAINERS']")
-    private WebElement clickShoesAndTrainers;
+    @FindBy(xpath = "//span[@class='hero__cta js-buttonHover']")
+    private WebElement clickShopSummer;
 
 
     @FindBy(xpath = ".//button[@type='button']//span[@class='_30BqGyh']")
@@ -18,8 +17,8 @@ public class MenPage extends BasePage{
         super(driver);
     }
 
-    public void clickShoesAndTrainers(){
-        clickShoesAndTrainers.click();
+    public void setClickShopSummer(){
+        clickShopSummer.click();
     }
 
     public void setClickOnSavedItems(){
